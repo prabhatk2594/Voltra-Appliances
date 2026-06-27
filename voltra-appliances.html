@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Voltra Appliances – Power to You</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #1a50d4;
+    --blue-dark: #0f3baa;
+    --blue-light: #2563eb;
+    --gold: #f59e0b;
+    --green: #16a34a;
+    --navy: #0b1a3b;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+  }
+  body { font-family: 'Inter', sans-serif; color: var(--gray-900); background: var(--white); }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 72px; background: var(--white);
+    border-bottom: 1px solid var(--gray-200); position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .logo-svg { height: 46px; width: auto; }
+  nav ul { list-style: none; display: flex; gap: 32px; }
+  nav ul a { font-size: 14px; font-weight: 500; color: var(--gray-700); transition: color .2s; }
+  nav ul a:hover { color: var(--blue); }
+  nav ul a.active { color: var(--blue); border-bottom: 2px solid var(--blue); padding-bottom: 2px; }
+  .btn-enquire {
+    background: var(--blue); color: var(--white); border: none; padding: 11px 22px;
+    border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 8px; transition: background .2s;
+  }
+  .btn-enquire:hover { background: var(--blue-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy); min-height: 430px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; padding: 60px 48px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(26,80,212,0.3) 0%, transparent 65%);
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-text h1 { font-size: 52px; font-weight: 900; color: var(--white); letter-spacing: -1px; line-height: 1.05; }
+  .hero-tagline {
+    font-size: 22px; font-weight: 700; color: var(--blue-light);
+    margin: 12px 0 18px; display: flex; align-items: center; gap: 10px;
+  }
+  .hr-line { flex: none; width: 50px; height: 2px; background: var(--blue-light); }
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 380px; line-height: 1.7; margin-bottom: 32px; }
+  .hero-btns { display: flex; gap: 14px; }
+  .btn-primary {
+    background: var(--blue); color: var(--white); padding: 13px 26px; border-radius: 6px;
+    font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+    transition: background .2s; cursor: pointer; border: none;
+  }
+  .btn-primary:hover { background: var(--blue-dark); }
+  .btn-outline {
+    background: transparent; color: var(--white); padding: 12px 24px; border-radius: 6px;
+    font-size: 14px; font-weight: 600; border: 1.5px solid rgba(255,255,255,0.5);
+    display: flex; align-items: center; gap: 8px; cursor: pointer; transition: border-color .2s;
+  }
+  .btn-outline:hover { border-color: var(--white); }
+  .hero-image-wrap {
+    display: flex; justify-content: center; align-items: flex-end;
+    position: relative; z-index: 1; height: 100%;
+  }
+  .hero-kettle {
+    max-height: 340px; max-width: 100%; object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  }
+  .capacity-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--navy); border: 2.5px solid var(--blue-light);
+    border-radius: 50%; width: 88px; height: 88px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--white); line-height: 1.15; text-align: center;
+  }
+  .capacity-badge .num { font-size: 24px; font-weight: 900; }
+  .capacity-badge .lbl { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--blue-light); }
+
+  /* ── FEATURES BAR ── */
+  .features-bar {
+    background: #0d2150; border-top: 1px solid rgba(255,255,255,0.07);
+    display: grid; grid-template-columns: repeat(4,1fr);
+  }
+  .feature-item {
+    display: flex; align-items: center; gap: 14px; padding: 24px 32px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .feature-item:last-child { border-right: none; }
+  .feat-icon {
+    width: 46px; height: 46px; background: rgba(37,99,235,0.18); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--blue-light);
+  }
+  .feat-title { font-size: 14px; font-weight: 700; color: #fff; }
+  .feat-sub { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+  /* ── CATALOGUE ── */
+  .catalogue { padding: 72px 48px; background: var(--white); }
+  .section-header { text-align: center; margin-bottom: 44px; }
+  .section-title {
+    font-size: 26px; font-weight: 800; letter-spacing: 1px;
+    display: inline-flex; align-items: center; gap: 16px;
+  }
+  .section-title::before, .section-title::after { content: ''; display: block; width: 48px; height: 2px; background: var(--blue); }
+  .section-sub { font-size: 14px; color: var(--gray-500); margin-top: 8px; }
+  .products-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .product-card {
+    border: 1px solid var(--gray-200); border-radius: 14px; padding: 24px;
+    display: flex; flex-direction: column; gap: 16px; transition: box-shadow .25s, transform .25s;
+  }
+  .product-card:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.09); transform: translateY(-2px); }
+  .card-top { display: flex; gap: 18px; align-items: flex-start; }
+  .card-img-wrap {
+    width: 110px; height: 110px; flex-shrink: 0; background: var(--gray-50);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .badge-avail { background: var(--green); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px; display: inline-block; margin-bottom: 6px; letter-spacing: .5px; }
+  .badge-soon { background: var(--gold); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 4px; display: inline-block; margin-bottom: 6px; letter-spacing: .5px; }
+  .card-name { font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+  .card-desc { font-size: 13px; color: var(--gray-500); line-height: 1.55; }
+  .card-features { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .card-features li { font-size: 13px; color: var(--gray-700); display: flex; align-items: center; gap: 7px; }
+  .card-features li::before { content: '✓'; color: var(--blue); font-weight: 800; font-size: 13px; }
+  .btn-view {
+    background: var(--blue); color: #fff; border: none; padding: 12px 20px;
+    border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 7px; width: fit-content; transition: background .2s;
+  }
+  .btn-view:hover { background: var(--blue-dark); }
+  .btn-learn {
+    background: transparent; color: var(--blue); border: 1.5px solid var(--blue);
+    padding: 11px 20px; border-radius: 7px; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 7px; width: fit-content; transition: all .2s;
+  }
+  .btn-learn:hover { background: var(--blue); color: #fff; }
+
+  /* ── ABOUT ── */
+  .about { padding: 72px 48px; background: var(--gray-50); display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .about-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .about-eyebrow::before { content: '—'; }
+  .about-heading { font-size: 34px; font-weight: 900; line-height: 1.2; margin-bottom: 18px; letter-spacing: -.5px; }
+  .about-heading span { color: var(--blue); }
+  .about-body { font-size: 14px; color: var(--gray-500); line-height: 1.8; margin-bottom: 28px; }
+  .btn-about {
+    background: var(--blue); color: #fff; border: none; padding: 13px 26px; border-radius: 7px;
+    font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; width: fit-content; transition: background .2s;
+  }
+  .btn-about:hover { background: var(--blue-dark); }
+  .pillars-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 28px; }
+  .pillar { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .pillar-icon { width: 54px; height: 54px; color: var(--blue); }
+  .pillar-name { font-size: 14px; font-weight: 700; }
+  .pillar-desc { font-size: 12px; color: var(--gray-500); line-height: 1.55; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--navy); color: rgba(255,255,255,0.7); }
+  .footer-main { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1.2fr; gap: 40px; padding: 56px 48px 44px; }
+  .footer-logo-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .footer-logo-svg { height: 40px; width: auto; }
+  .footer-power { font-size: 11px; color: var(--blue-light); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+  .footer-tagline-text { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; }
+  .socials { display: flex; gap: 10px; }
+  .s-btn { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity .2s; }
+  .s-btn:hover { opacity: .8; }
+  .fb { background: #1877f2; } .ig { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+  .yt { background: #ff0000; } .wa { background: #25d366; }
+  footer h4 { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 18px; }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  footer ul a { font-size: 13px; color: rgba(255,255,255,0.55); transition: color .2s; }
+  footer ul a:hover { color: var(--white); }
+  .contact-row { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 12px; }
+  .contact-row svg { flex-shrink: 0; color: var(--blue-light); margin-top: 1px; }
+  .nl-input { display: flex; margin-top: 8px; }
+  .nl-input input {
+    flex: 1; padding: 10px 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+    border-right: none; border-radius: 6px 0 0 6px; color: #fff; font-size: 13px; outline: none;
+  }
+  .nl-input input::placeholder { color: rgba(255,255,255,0.3); }
+  .nl-input button {
+    background: var(--blue); border: none; padding: 10px 14px; border-radius: 0 6px 6px 0;
+    cursor: pointer; display: flex; align-items: center; color: #fff; transition: background .2s;
+  }
+  .nl-input button:hover { background: var(--blue-dark); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding: 18px 48px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.3); }
+
+  /* placeholder for missing img */
+  .img-placeholder {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #94a3b8; background: #f1f5f9; border-radius: 10px;
+    flex-direction: column; gap: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ VOLTRA LOGO SVG (faithful to uploaded logo) ══ -->
+<!-- Defined once, reused via <use> -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="voltra-logo-dark" viewBox="0 0 220 70">
+    <!-- V shape -->
+    <path d="M8 8 L40 58 L52 58 L84 8 L70 8 L46 48 L22 8 Z" fill="#1e2a3a"/>
+    <!-- Lightning bolt in V -->
+    <polygon points="46,12 38,32 44,32 42,50 54,28 48,28 52,12" fill="#2563eb"/>
+    <!-- VOLTRA text -->
+    <text x="0" y="66" font-family="Inter,sans-serif" font-size="13" font-weight="900" fill="#1e2a3a" letter-spacing="6">VOLTRA</text>
+  </symbol>
+  <symbol id="voltra-logo-light" viewBox="0 0 220 70">
+    <path d="M8 8 L40 58 L52 58 L84 8 L70 8 L46 48 L22 8 Z" fill="#ffffff"/>
+    <polygon points="46,12 38,32 44,32 42,50 54,28 48,28 52,12" fill="#2563eb"/>
+    <text x="0" y="66" font-family="Inter,sans-serif" font-size="13" font-weight="900" fill="#ffffff" letter-spacing="6">VOLTRA</text>
+  </symbol>
+</svg>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="logo">
+    <!-- Real logo image — replace src with your logo file path -->
+    <img src="logo.png" class="logo-svg" alt="Voltra Appliances"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+    />
+    <!-- Fallback SVG logo (shown if image not found) -->
+    <div style="display:none; align-items:center; gap:10px;">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+        <rect width="44" height="44" rx="6" fill="#1e2a3a"/>
+        <path d="M8 8 L22 34 L28 34 L42 8 L35 8 L25 26 L15 8 Z" fill="#fff" transform="scale(0.8) translate(3,3)"/>
+        <polygon points="22,8 17,20 21,20 20,30 27,17 23,17 25,8" fill="#2563eb" transform="scale(0.75) translate(4,3)"/>
+      </svg>
+      <div>
+        <div style="font-size:17px;font-weight:900;letter-spacing:1.5px;color:#1e2a3a;line-height:1.1;">VOLTRA</div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:3px;color:#2563eb;">APPLIANCES</div>
+      </div>
+    </div>
+  </div>
+  <ul>
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">Product Catalogue</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Contact Us</a></li>
+  </ul>
+  <button class="btn-enquire">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Enquire Now
+  </button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>VOLTRA<br>APPLIANCES</h1>
+    <div class="hero-tagline">
+      <span class="hr-line"></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#2563eb"><path d="M13 2L4.09 12.97 12 12.97 10.91 22 20 11H12.97L13 2z"/></svg>
+      Power to You
+      <span class="hr-line"></span>
+    </div>
+    <p class="hero-sub">Smart, reliable and energy-efficient home appliances designed for modern living.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Explore Products &nbsp;→</button>
+      <button class="btn-outline">Contact Us &nbsp;→</button>
+    </div>
+  </div>
+
+  <div class="hero-image-wrap">
+    <!-- Real kettle image — replace src with your kettle file path -->
+    <img src="kettle.png" class="hero-kettle" alt="Voltra Electric Kettle 1.8L"
+         onerror="this.onerror=null; this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';"
+    />
+    <!-- Fallback illustrated kettle -->
+    <svg style="display:block" width="290" height="320" viewBox="0 0 290 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="145" cy="266" rx="84" ry="14" fill="#000" opacity=".35"/>
+      <path d="M82 105 Q78 205 88 250 Q145 276 202 250 Q212 205 208 105 Z" fill="url(#hg)"/>
+      <path d="M100 115 Q97 195 103 243" stroke="white" stroke-width="3.5" stroke-linecap="round" opacity=".14"/>
+      <path d="M202 158 Q248 142 256 120 Q254 106 240 110 Q220 120 205 152" fill="#aab4be"/>
+      <path d="M82 135 Q48 135 46 195 Q46 238 82 233" stroke="#2a2a2a" stroke-width="15" stroke-linecap="round" fill="none"/>
+      <ellipse cx="145" cy="105" rx="67" ry="13" fill="#8a9aaa" opacity=".85"/>
+      <rect x="132" y="88" width="26" height="19" rx="9" fill="#555"/>
+      <rect x="77" y="250" width="136" height="18" rx="9" fill="#111827"/>
+      <ellipse cx="145" cy="258" rx="68" ry="9" fill="#0a0f1a" opacity=".5"/>
+      <circle cx="145" cy="255" r="5.5" fill="#ef4444"/>
+      <text x="145" y="200" font-family="Inter" font-size="12" font-weight="800" fill="rgba(255,255,255,0.85)" text-anchor="middle">VOLTRA</text>
+      <polygon points="139,172 131,187 138,187 136,197 147,180 140,180 144,172" fill="rgba(255,255,255,0.85)"/>
+      <defs>
+        <linearGradient id="hg" x1="82" y1="105" x2="210" y2="260" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#d4dae0"/>
+          <stop offset="45%" stop-color="#9caab8"/>
+          <stop offset="100%" stop-color="#6b7f90"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="capacity-badge">
+      <span class="num">1.8</span>
+      <span class="lbl">Litre<br>Capacity</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES BAR ══ -->
+<div class="features-bar">
+  <div class="feature-item">
+    <div class="feat-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+    </div>
+    <div><div class="feat-title">Premium Quality</div><div class="feat-sub">Built to last</div></div>
+  </div>
+  <div class="feature-item">
+    <div class="feat-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.09 12.97 12 12.97 10.91 22 20 11H12.97L13 2z"/></svg>
+    </div>
+    <div><div class="feat-title">Energy Efficient</div><div class="feat-sub">Saves power, saves bills</div></div>
+  </div>
+  <div class="feature-item">
+    <div class="feat-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+    </div>
+    <div><div class="feat-title">Safe &amp; Reliable</div><div class="feat-sub">Advanced safety features</div></div>
+  </div>
+  <div class="feature-item">
+    <div class="feat-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-5h2v2h-2zm0-8h2v6h-2z"/></svg>
+    </div>
+    <div><div class="feat-title">Modern Design</div><div class="feat-sub">Elegance in every detail</div></div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT CATALOGUE ══ -->
+<section class="catalogue">
+  <div class="section-header">
+    <div class="section-title">PRODUCT CATALOGUE</div>
+    <div class="section-sub">Explore our range of innovative appliances.</div>
+  </div>
+  <div class="products-grid">
+
+    <!-- Kettle card — uses real kettle image -->
+    <div class="product-card">
+      <div class="card-top">
+        <div class="card-img-wrap">
+          <img src="kettle.png" alt="Electric Kettle"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="img-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#cbd5e1"><path d="M8 3C8 3 3 8 3 12a9 9 0 0 0 18 0c0-4-5-9-5-9H8zm4 14a5 5 0 0 1-5-5h2a3 3 0 0 0 6 0h2a5 5 0 0 1-5 5z"/></svg>
+            <span>Electric Kettle</span>
+          </div>
+        </div>
+        <div>
+          <span class="badge-avail">AVAILABLE NOW</span>
+          <div class="card-name">Electric Kettle<br>1.8 Litre</div>
+        </div>
+      </div>
+      <ul class="card-features">
+        <li>Stainless Steel Body</li>
+        <li>1500W Fast Heating</li>
+        <li>Auto Shut-Off</li>
+        <li>Boil-Dry Protection</li>
+        <li>360° Swivel Base</li>
+      </ul>
+      <button class="btn-view">View Details &nbsp;→</button>
+    </div>
+
+    <!-- Induction Cooktop -->
+    <div class="product-card">
+      <div class="card-top">
+        <div class="card-img-wrap">
+          <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+            <rect x="5" y="18" width="80" height="52" rx="8" fill="#1a1a2e"/>
+            <rect x="9" y="22" width="72" height="44" rx="6" fill="#0f0f1e"/>
+            <circle cx="45" cy="44" r="16" stroke="#2563eb" stroke-width="2" fill="none" opacity=".6"/>
+            <circle cx="45" cy="44" r="10" stroke="#3b82f6" stroke-width="1.5" fill="none" opacity=".35"/>
+            <circle cx="45" cy="44" r="4" fill="#3b82f6" opacity=".8"/>
+            <rect x="12" y="60" width="10" height="5" rx="2" fill="#2563eb" opacity=".7"/>
+            <rect x="26" y="60" width="10" height="5" rx="2" fill="#334155"/>
+            <rect x="40" y="60" width="10" height="5" rx="2" fill="#334155"/>
+          </svg>
+        </div>
+        <div>
+          <span class="badge-soon">COMING SOON</span>
+          <div class="card-name">Induction Cooktop</div>
+          <div class="card-desc">Advanced cooking with efficiency and safety.</div>
+        </div>
+      </div>
+      <button class="btn-learn">Learn More &nbsp;→</button>
+    </div>
+
+    <!-- Water Geyser -->
+    <div class="product-card">
+      <div class="card-top">
+        <div class="card-img-wrap">
+          <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
+            <rect x="25" y="6" width="40" height="58" rx="10" fill="#e8edf3"/>
+            <rect x="30" y="11" width="30" height="48" rx="7" fill="white"/>
+            <rect x="34" y="22" width="22" height="4" rx="2" fill="#e2e8f0"/>
+            <circle cx="45" cy="42" r="10" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+            <text x="45" y="46" font-family="Inter" font-size="8" font-weight="800" fill="#2563eb" text-anchor="middle">V</text>
+            <rect x="41" y="64" width="8" height="14" rx="3" fill="#94a3b8"/>
+            <rect x="36" y="76" width="18" height="4" rx="2" fill="#64748b"/>
+            <circle cx="33" cy="32" r="4" fill="#ef4444" opacity=".85"/>
+          </svg>
+        </div>
+        <div>
+          <span class="badge-soon">COMING SOON</span>
+          <div class="card-name">Instant Water Geyser</div>
+          <div class="card-desc">Instant hot water, anytime. Compact and efficient.</div>
+        </div>
+      </div>
+      <button class="btn-learn">Learn More &nbsp;→</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="about">
+  <div>
+    <div class="about-eyebrow">About Voltra Appliances</div>
+    <h2 class="about-heading">Designed for a<br><span>Better Tomorrow</span></h2>
+    <p class="about-body">At Voltra Appliances, we believe in empowering your everyday life with innovative, high-performance and stylish appliances. Our commitment to quality, safety and customer satisfaction drives everything we do.</p>
+    <button class="btn-about">Read More About Us &nbsp;→</button>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <svg class="pillar-icon" viewBox="0 0 54 54" fill="none"><circle cx="27" cy="27" r="24" stroke="#1a50d4" stroke-width="1.5"/><path d="M27 13 L31.5 22.5 L42 24 L34.5 31 L36 42 L27 37.3 L18 42 L19.5 31 L12 24 L22.5 22.5 Z" fill="#1a50d4" opacity=".75"/></svg>
+      <div class="pillar-name">Quality Assurance</div>
+      <div class="pillar-desc">Strict quality checks for your peace of mind.</div>
+    </div>
+    <div class="pillar">
+      <svg class="pillar-icon" viewBox="0 0 54 54" fill="none"><circle cx="27" cy="22" r="9" stroke="#1a50d4" stroke-width="1.5"/><circle cx="14" cy="22" r="6" stroke="#1a50d4" stroke-width="1.5"/><circle cx="40" cy="22" r="6" stroke="#1a50d4" stroke-width="1.5"/><path d="M3 44 Q3 33 14 33 Q20 33 22 37 Q24 33 27 33 Q30 33 32 37 Q34 33 40 33 Q51 33 51 44" stroke="#1a50d4" stroke-width="1.5" fill="none"/></svg>
+      <div class="pillar-name">Customer Focused</div>
+      <div class="pillar-desc">Your satisfaction is our priority.</div>
+    </div>
+    <div class="pillar">
+      <svg class="pillar-icon" viewBox="0 0 54 54" fill="none"><path d="M27 6 Q14 13 14 27 Q14 41 27 48 Q40 41 40 27 Q40 13 27 6Z" stroke="#1a50d4" stroke-width="1.5" fill="none"/><path d="M21 27 Q27 21 33 27 Q27 33 21 27Z" fill="#1a50d4" opacity=".5"/></svg>
+      <div class="pillar-name">Sustainable Living</div>
+      <div class="pillar-desc">Eco-friendly appliances for a better planet.</div>
+    </div>
+    <div class="pillar">
+      <svg class="pillar-icon" viewBox="0 0 54 54" fill="none"><path d="M27 5 L8 14 L8 28 Q8 42 27 49 Q46 42 46 28 L46 14 Z" stroke="#1a50d4" stroke-width="1.5" fill="none"/><path d="M18 27 L24 33 L36 20" stroke="#1a50d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="pillar-name">Warranty Support</div>
+      <div class="pillar-desc">Reliable after-sales service &amp; support.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-logo-wrap">
+      <!-- Footer logo (white version) -->
+      <div style="display:flex;align-items:center;gap:10px;">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+          <rect width="38" height="38" rx="5" fill="rgba(255,255,255,0.08)"/>
+          <path d="M6 6 L19 30 L24 30 L37 6 L31 6 L21.5 23 L12.5 6 Z" fill="#fff" opacity=".9"/>
+          <polygon points="21,7 16,18 20,18 19,26 25,15 21,15 23,7" fill="#2563eb"/>
+        </svg>
+        <div>
+          <div style="font-size:16px;font-weight:900;letter-spacing:1.5px;color:#fff;line-height:1.1;">VOLTRA</div>
+          <div style="font-size:8px;font-weight:700;letter-spacing:3px;color:#2563eb;">APPLIANCES</div>
+        </div>
+      </div>
+      <div class="footer-power">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L4.09 12.97 12 12.97 10.91 22 20 11H12.97L13 2z"/></svg>
+        Power to You
+      </div>
+      <p class="footer-tagline-text">Smart, reliable and energy-efficient appliances designed for modern living.</p>
+      <div class="socials">
+        <div class="s-btn fb"><svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+        <div class="s-btn ig"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></div>
+        <div class="s-btn yt"><svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.95C18.88 4 12 4 12 4s-6.88 0-8.59.47A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.5C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#ff0000"/></svg></div>
+        <div class="s-btn wa"><svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+      </div>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Product Catalogue</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Customer Support</h4>
+      <ul>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Warranty Policy</a></li>
+        <li><a href="#">Terms &amp; Conditions</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contact Us</h4>
+      <div class="contact-row">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        +91 12345 67890
+      </div>
+      <div class="contact-row">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        info@voltraappliances.com
+      </div>
+      <div class="contact-row">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Pune, Maharashtra, India
+      </div>
+    </div>
+
+    <div>
+      <h4>Newsletter</h4>
+      <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.65;margin-bottom:12px;">Stay updated with our latest products and offers.</p>
+      <div class="nl-input">
+        <input type="email" placeholder="Enter your email" />
+        <button><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Voltra Appliances. All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>
